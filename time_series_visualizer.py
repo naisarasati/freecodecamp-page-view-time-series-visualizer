@@ -4,11 +4,11 @@ import seaborn as sns
 from pandas.plotting import register_matplotlib_converters
 register_matplotlib_converters()
 
-# Import data (Make sure to parse dates. Consider setting index column to 'date'.)
+# Import Data 
 df = pd.read_csv('/Users/macbookair/Documents/Page-view-time-visualizer/freecodecamp-page-view-time-series-visualizer/fcc-forum-pageviews.csv', index_col="date", parse_dates=True)
 print(df.head())
 
-# Clean data with the top of 2.5% page views and the bottom of 2.5% page views
+# Clean Data with The Top of 2.5% Page Views and The Bottom of 2.5% Page Views
 top_25 = df['value'].quantile(0.025)
 bottom_25 = df['value'].quantile(0.975)
 df = df[(df['value'] >= top_25) & (df['value'] <= bottom_25)]
@@ -27,13 +27,13 @@ def draw_line_plot():
     ax.set_ylabel('Page Views', fontsize=20)
     plt.xticks(rotation=45)
 
-    #4. Save image and return fig (don't change this part)
+    #4. Save Image and Return Fig 
     fig.savefig('line_plot.png')
     return fig
 
 
 def draw_bar_plot():
-    #1. Copy data for monthly bar plot
+    #1. Copy Data for Monthly Bar Plot
     df_bar = pd.read_csv('/Users/macbookair/Documents/Page-view-time-visualizer/freecodecamp-page-view-time-series-visualizer/fcc-forum-pageviews.csv', parse_dates=["date"])
     print(df_bar)
 
@@ -51,13 +51,13 @@ def draw_bar_plot():
     plt.title('Daily freeCodeCamp Forum Average Page Views 5/2016-12/2019', fontsize=16, fontweight="bold")
     plt.legend(title='Months', labels=['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'], fontsize=12)
 
-    #5. Save image and return fig (don't change this part)
+    #5. Save Image and Return Fig 
     fig.savefig('bar_plot.png')
     return fig
 
 
 def draw_box_plot():
-    #1. Prepare data for box plots 
+    #1. Prepare Data for Box Plots 
     df_box = df.copy()
     df_box.reset_index(inplace=True)
     df_box['year'] = [d.year for d in df_box.date]
@@ -79,6 +79,6 @@ def draw_box_plot():
     axes[1].set_ylabel('Page Views', fontsize=12)
     axes[0].set_title('Month-wise Box Plot (Seasonality)', fontsize=14, fontweight='bold')
 
-    # Save image and return fig (don't change this part)
+    # Save Image and Return Fig
     fig.savefig('box_plot.png')
     return fig
